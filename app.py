@@ -13,10 +13,10 @@ st.title("🔢 Patrones Numéricos")
 st.markdown("Un modelo feedforward simple para predecir el siguiente valor (la suma) de una secuencia numérica.")
 
 # --- Colores primarios y secundarios para el tema ---
-primary_color = "#4c6ef5"  # Azul suave (énfasis)
-secondary_color = "#a3aed0" # Gris azulado suave (secundario)
-background_gradient = "linear-gradient(135deg, #e0f7fa 0%, #c5cae9 100%)" # Degradado suave azul a lila
-text_color = "#37474f"      # Gris oscuro azulado
+primary_color = "#4c6ef5"
+secondary_color = "#a3aed0"
+background_gradient = "linear-gradient(135deg, #e0f7fa 0%, #c5cae9 100%)"
+text_color = "#37474f"
 
 st.markdown(
     f"""
@@ -153,6 +153,9 @@ with tab_predict:
     st.header("🔮 Predicción de Nueva Secuencia")
     st.markdown(f"Introduce una secuencia numérica de {st.session_state.get('sequence_length', 3)} números (separados por comas) para predecir su suma.")
     new_sequence_str = st.text_input(f"Secuencia de {st.session_state.get('sequence_length', 3)} números:", key="sequence_input")
+
+    def clear_input():
+        st.session_state["sequence_input"] = ""
 
     col1, col2 = st.columns([3, 1])
     with col1:
