@@ -2,20 +2,20 @@ import streamlit as st
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
-import os  # Para verificar si el archivo del modelo existe
+import os
 
 from data_util import generate_synthetic_sequence_data, split_data
 from model import create_ff_model, compile_model, train_model, evaluate_model, predict_sequence
 
 # --- Configuración de la página ---
 st.set_page_config(page_title="Predicción de Secuencias Cortas", layout="wide")
-st.title("🔢 Predicción de Secuencias Numéricas Cortas") # Cambié el emoji aquí
+st.title("🔢 Patrones Numéricos") # Icono y título cambiados
 st.markdown("Un modelo feedforward simple para predecir el siguiente valor (la suma) de una secuencia numérica.")
 
 # --- Colores primarios y secundarios para el tema ---
-primary_color = "#673ab7"  # Morado oscuro
-secondary_color = "#e91e63" # Rosa
-background_color = "#f3e5f5" # Lila claro
+primary_color = "#388e3c"  # Verde oscuro (énfasis)
+secondary_color = "#81c784" # Verde claro (secundario)
+background_color = "#f1f8e9" # Verde muy claro (fondo)
 text_color = "#212121"
 
 st.markdown(
@@ -131,9 +131,9 @@ with tab_config:
 
 # --- Pestaña de Predicción ---
 with tab_predict:
-    st.header("🔮 Predicción de Nueva Secuencia")
+    st.header("🔢 Predicción de Nueva Secuencia") # Icono cambiado aquí también
     st.markdown(f"Introduce una secuencia numérica de {st.session_state.get('sequence_length', 3)} números (separados por comas) para predecir su suma.")
-    new_sequence_str = st.text_input(f"Secuencia de {st.session_state.get('sequence_length', 3)} números:", key="sequence_input") # Agregué una key
+    new_sequence_str = st.text_input(f"Secuencia de {st.session_state.get('sequence_length', 3)} números:", key="sequence_input")
 
     col1, col2 = st.columns([3, 1])
     with col1:
@@ -154,4 +154,4 @@ with tab_predict:
                 st.info("Por favor, entrena el modelo primero en la pestaña de 'Configuración & Entrenamiento'.")
     with col2:
         if st.button("🗑️ Borrar Ingresado"):
-            st.session_state["sequence_input"] = "" # Limpia el valor del text_input
+            st.session_state["sequence_input"] = ""
