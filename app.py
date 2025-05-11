@@ -172,5 +172,4 @@ with tab_predict:
             else:
                 st.info("Por favor, entrena el modelo primero en la pestaña de 'Configuración & Entrenamiento'.")
     with col2:
-        if st.button("🗑️ Borrar Ingresado"):
-            st.session_state["sequence_input"] = ""
+        st.button("🗑️ Borrar Ingresado", on_click=clear_input)
