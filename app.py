@@ -150,7 +150,7 @@ with tab_config:
 
 # --- Pestaña de Predicción ---
 with tab_predict:
-    st.header("🔮 Predicción de Nueva Secuencia")
+    st.header("ℹ️ Predicción de Nueva Secuencia")
     st.markdown(f"Introduce una secuencia numérica de {st.session_state.get('sequence_length', 3)} números (separados por comas) para predecir su suma.")
     new_sequence_str = st.text_input(f"Secuencia de {st.session_state.get('sequence_length', 3)} números:", key="sequence_input")
 
