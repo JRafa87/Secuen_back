@@ -1,4 +1,5 @@
 import tensorflow as tf
+import numpy as np
 
 def create_ff_model(sequence_length):
     """Crea un modelo feedforward simple para la predicción de secuencias."""
