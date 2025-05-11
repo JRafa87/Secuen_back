@@ -9,38 +9,57 @@ from model import create_ff_model, compile_model, train_model, evaluate_model, p
 
 # --- Configuración de la página ---
 st.set_page_config(page_title="Predicción de Secuencias Cortas", layout="wide")
-st.title("🔢 Patrones Numéricos") # Icono y título cambiados
+st.title("🔢 Patrones Numéricos")
 st.markdown("Un modelo feedforward simple para predecir el siguiente valor (la suma) de una secuencia numérica.")
 
 # --- Colores primarios y secundarios para el tema ---
-primary_color = "#388e3c"  # Verde oscuro (énfasis)
-secondary_color = "#81c784" # Verde claro (secundario)
-background_color = "#f1f8e9" # Verde muy claro (fondo)
-text_color = "#212121"
+primary_color = "#4c6ef5"  # Azul suave (énfasis)
+secondary_color = "#a3aed0" # Gris azulado suave (secundario)
+background_gradient = "linear-gradient(135deg, #e0f7fa 0%, #c5cae9 100%)" # Degradado suave azul a lila
+text_color = "#37474f"      # Gris oscuro azulado
 
 st.markdown(
     f"""
     <style>
         .stApp {{
-            background-color: {background_color};
+            background: {background_gradient};
             color: {text_color};
         }}
-        h1, h2, h3, h4, h5, h6, p, div, stButton > button, stSlider > div > div > div > p {{
+        h1, h2, h3, h4, h5, h6 {{
+            color: {primary_color}; /* Títulos en color primario */
+            font-weight: bold;
+        }}
+        p, div, stButton > button, stSlider > div > div > div > p {{
             color: {text_color};
+            font-size: 16px;
+        }}
+        .stButton > button {{
+            background-color: {primary_color};
+            color: white;
+            border-radius: 5px;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
         }}
         .stButton > button:hover {{
-            background-color: {primary_color};
-            color: white;
+            background-color: {secondary_color};
+            color: {text_color};
         }}
         .stTabs [data-baseweb="tab-list"] > div {{
-            background-color: {primary_color};
+            background-color: {secondary_color};
+            border-bottom: 2px solid {primary_color};
         }}
         .stTabs [data-baseweb="tab-list"] > div > button[aria-selected="true"] {{
-            background-color: {secondary_color};
+            background-color: {primary_color};
             color: white;
+            font-weight: bold;
         }}
         .stProgress > div > div > div > div {{
-            background-color: {secondary_color};
+            background-color: {primary_color};
+        }}
+        .stTextInput > label {{
+            color: {primary_color};
+            font-weight: bold;
         }}
     </style>
     """,
@@ -131,7 +150,7 @@ with tab_config:
 
 # --- Pestaña de Predicción ---
 with tab_predict:
-    st.header("🔢 Predicción de Nueva Secuencia") # Icono cambiado aquí también
+    st.header("🔮 Predicción de Nueva Secuencia")
     st.markdown(f"Introduce una secuencia numérica de {st.session_state.get('sequence_length', 3)} números (separados por comas) para predecir su suma.")
     new_sequence_str = st.text_input(f"Secuencia de {st.session_state.get('sequence_length', 3)} números:", key="sequence_input")
 
