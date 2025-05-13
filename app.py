@@ -7,6 +7,10 @@ import os
 from data_util import generate_synthetic_sequence_data, split_data
 from model import create_ff_model, compile_model, train_model, evaluate_model, predict_sequence
 
+# --- Configuración de la página ---
+st.set_page_config(page_title="Predicción de Secuencias Cortas", layout="wide")
+st.title("🔢 Patrones Numéricos con Redes Neuronales")
+
 # --- Estilos personalizados ---
 st.markdown("""
     <style>
@@ -27,9 +31,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- Configuración de la página ---
-st.set_page_config(page_title="Predicción de Secuencias Cortas", layout="wide")
-st.title("🔢 Patrones Numéricos con Redes Neuronales")
 
 # --- Variables ---
 MODEL_FILE = "sequence_predictor_model.h5"
