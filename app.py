@@ -7,9 +7,29 @@ import os
 from data_util import generate_synthetic_sequence_data, split_data
 from model import create_ff_model, compile_model, train_model, evaluate_model, predict_sequence
 
+# --- Estilos personalizados ---
+st.markdown("""
+    <style>
+        .stApp {
+            background: linear-gradient(to bottom right, #e0f7fa, #bbdefb);
+            color: #000;
+        }
+        .stButton>button {
+            background-color: #1976d2;
+            color: white;
+            border-radius: 8px;
+            padding: 0.4em 1em;
+        }
+        .stButton>button:hover {
+            background-color: #1565c0;
+            color: white;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
 # --- Configuración de la página ---
 st.set_page_config(page_title="Predicción de Secuencias Cortas", layout="wide")
-st.title("🔢 Patrones Numéricos")
+st.title("🔢 Patrones Numéricos con Redes Neuronales")
 
 # --- Variables ---
 MODEL_FILE = "sequence_predictor_model.h5"
@@ -21,7 +41,7 @@ if 'model' not in st.session_state:
 if 'model_trained' not in st.session_state:
     st.session_state.model_trained = False
 
-if 'sequence_length' not in st.session_state:  # ✅ MODIFICADO
+if 'sequence_length' not in st.session_state:
     st.session_state.sequence_length = 3
 
 # --- Intentar cargar modelo al inicio ---
@@ -38,10 +58,32 @@ tab_info, tab_config, tab_predict = st.tabs(["ℹ️ Información", "⚙️ Conf
 
 # --- ℹ️ Información ---
 with tab_info:
-    st.header("ℹ️ Información del Proyecto")
+    st.header("📘 ¿Qué hace esta app?")
     st.markdown("""
-    Este proyecto demuestra cómo una red neuronal feedforward simple puede aprender a predecir la suma de una secuencia corta de números.
-    ...
+    Esta aplicación demuestra cómo una **red neuronal simple** puede aprender a **predecir la suma** de una secuencia de números.
+
+    ---
+    ### 🚀 Tecnologías Usadas
+    - **Librerías**: Streamlit, TensorFlow, NumPy, Matplotlib.
+    - **Modelo**: Red neuronal densa (*Feedforward Neural Network*).
+    - **Entrenamiento**: Aprendizaje supervisado.
+    - **Optimización**: Adam + MSE (Error Cuadrático Medio).
+
+    ---
+    ### 🧠 ¿Cómo Funciona?
+    1. Genera secuencias numéricas aleatorias y su suma como etiqueta.
+    2. Entrena una red neuronal con esos datos.
+    3. Guarda el modelo entrenado para predicciones futuras.
+    4. Permite ingresar nuevas secuencias para predecir su suma.
+
+    ---
+    ### 🎯 Objetivo Educativo
+    Este proyecto es ideal para:
+    - Introducirse en redes neuronales.
+    - Explorar entrenamiento de modelos simples.
+    - Visualizar cómo un modelo aprende patrones numéricos básicos.
+
+    > *"Una forma intuitiva de comenzar en el mundo del aprendizaje automático."*
     """)
 
 # --- ⚙️ Configuración & Entrenamiento ---
@@ -64,7 +106,7 @@ with tab_config:
 
             st.session_state.model = model
             st.session_state.model_trained = True
-            st.session_state.sequence_length = sequence_length  # ✅ GUARDAMOS sequence_length
+            st.session_state.sequence_length = sequence_length
 
             try:
                 tf.keras.models.save_model(model, MODEL_FILE)
@@ -96,14 +138,15 @@ with tab_predict:
             if st.session_state.model_trained and st.session_state.model is not None:
                 try:
                     new_sequence = [float(x.strip()) for x in new_sequence_str.split(',')]
-                    if len(new_sequence) == st.session_state.sequence_length:  # ✅ Comprobamos contra la sesión
+                    if len(new_sequence) == st.session_state.sequence_length:
                         prediction = predict_sequence(st.session_state.model, new_sequence)
                         st.success(f"🔢 La predicción para {new_sequence} es: **{prediction:.2f}**")
                     else:
-                        st.error(f"Por favor, introduce exactamente {st.session_state.sequence_length} números.")
+                        st.error(f"Introduce exactamente {st.session_state.sequence_length} números.")
                 except ValueError:
                     st.error("❌ Por favor, introduce solo números válidos separados por comas.")
             else:
                 st.warning("⚠️ Entrena el modelo primero en la pestaña 'Configuración & Entrenamiento'.")
     with col2:
         st.button("🗑️ Borrar Ingresado", on_click=clear_input)
+
